@@ -1,0 +1,25 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: ai-image-postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ai_image
+      POSTGRES_PASSWORD: ai_image
+      POSTGRES_DB: ai_image
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    container_name: ai-image-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    profiles:
+      - worker
+
+volumes:
+  postgres_data:

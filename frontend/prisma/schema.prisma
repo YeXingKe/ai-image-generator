@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  credits   Int      @default(10)
+  createdAt DateTime @default(now()) @map("created_at")
+  tasks     GenerationTask[]
+  txns      CreditTransaction[]
+
+  @@map("users")
+}
+
+model GenerationTask {
+  id          String   @id @default(cuid())
+  userId      String   @map("user_id")
+  model       String
+  mode        String
+  prompt      String
+  refImageUrl String?  @map("ref_image_url")
+  resultUrl   String?  @map("result_url")
+  cost        Int
+  status      String   @default("pending")
+  errorMessage String? @map("error_message")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  user        User     @relation(fields: [userId], references: [id])
+
+  @@index([userId, createdAt])
+  @@map("generation_tasks")
+}
+
+model CreditTransaction {
+  id          String   @id @default(cuid())
+  userId      String   @map("user_id")
+  amount      Int
+  type        String
+  description String?
+  relatedTaskId String? @map("related_task_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+  user        User     @relation(fields: [userId], references: [id])
+
+  @@index([userId, createdAt])
+  @@map("credit_transactions")
+}

@@ -1,0 +1,32 @@
+# dependencies
+node_modules/
+.pnpm-store/
+frontend/.next/
+frontend/out/
+
+# env
+.env
+.env.local
+.env.*.local
+frontend/.env
+frontend/.env.local
+worker/.env
+worker/.venv/
+venv/
+__pycache__/
+*.py[cod]
+.Python
+
+# prisma
+frontend/prisma/*.db
+frontend/prisma/*.db-journal
+
+# misc
+.DS_Store
+*.log
+.turbo/
+coverage/
+dist/
+.idea/
+.vscode/
+*.tsbuildinfo
