@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { BrandLockup } from "@/components/brand/brand-lockup";
+import { AuthStage } from "@/components/auth/auth-stage";
 import { setSession } from "@/lib/auth-session";
 
 export default function RegisterPage() {
@@ -25,52 +25,70 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="flex min-h-dvh flex-col bg-[var(--bg)] text-[var(--ink)]">
-      <header className="px-6 py-5 md:px-10">
-        <Link href="/" className="inline-flex">
-          <BrandLockup markClassName="h-8 w-8" textClassName="text-xl" />
-        </Link>
-      </header>
-      <main className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center px-6 pb-16">
-        <h1 className="font-[family-name:var(--font-display)] text-3xl tracking-tight">注册</h1>
-        <p className="mt-2 text-sm text-[var(--muted)]">注册即赠 10 体验积分，登录后进入工作台。</p>
+    <AuthStage asideCopy="注册即赠 10 体验积分，立刻在工作台试出第一张图。">
+      <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-md md:p-8">
+        <p className="text-xs tracking-[0.2em] text-teal-300/80 uppercase">
+          Create account
+        </p>
+        <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl tracking-tight">
+          注册
+        </h2>
+        <p className="mt-2 text-sm text-white/45">
+          创建账号，体验积分马上到账。
+        </p>
+
         <form onSubmit={onSubmit} className="mt-8 space-y-4">
           <label className="block space-y-2 text-sm">
-            <span className="text-[var(--muted)]">邮箱</span>
+            <span className="text-white/50">邮箱</span>
             <input
               type="email"
               required
+              autoComplete="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="h-11 w-full border border-[var(--line)] bg-white px-3 outline-none focus:border-[var(--accent)]"
+              placeholder="you@example.com"
+              className="auth-field"
             />
           </label>
           <label className="block space-y-2 text-sm">
-            <span className="text-[var(--muted)]">密码</span>
+            <span className="text-white/50">密码</span>
             <input
               type="password"
               required
               minLength={6}
+              autoComplete="new-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="h-11 w-full border border-[var(--line)] bg-white px-3 outline-none focus:border-[var(--accent)]"
+              placeholder="至少 6 位"
+              className="auth-field"
             />
           </label>
-          {error && <p className="text-sm text-amber-700">{error}</p>}
+          {error && (
+            <p
+              className="rounded-lg border border-amber-400/20 bg-amber-400/10 px-3 py-2 text-sm text-amber-200"
+              role="alert"
+            >
+              {error}
+            </p>
+          )}
           <button
             type="submit"
-            className="h-11 w-full bg-[var(--ink)] text-sm font-medium text-[var(--bg)] hover:opacity-90"
+            className="mt-2 h-12 w-full rounded-full bg-teal-400 text-sm font-semibold text-[#042f2e] transition hover:bg-teal-300"
           >
-            创建账号
+            创建并进入工作台
           </button>
         </form>
-        <p className="mt-6 text-sm text-[var(--muted)]">
+
+        <p className="mt-7 text-center text-sm text-white/45">
           已有账号？{" "}
-          <Link href="/login" className="text-[var(--ink)] underline-offset-4 hover:underline">
-            登录
+          <Link
+            href="/login"
+            className="text-teal-300 underline-offset-4 transition hover:text-teal-200 hover:underline"
+          >
+            去登录
           </Link>
         </p>
-      </main>
-    </div>
+      </div>
+    </AuthStage>
   );
 }

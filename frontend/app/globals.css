@@ -125,6 +125,36 @@ body {
   box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
+.auth-field {
+  width: 100%;
+  height: 2.75rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 0 0.9rem;
+  font-size: 0.875rem;
+  color: #fff;
+  outline: none;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+
+.auth-field::placeholder {
+  color: rgba(255, 255, 255, 0.28);
+}
+
+.auth-field:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.auth-field:focus {
+  border-color: rgba(45, 212, 191, 0.55);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.18);
+}
+
 .seg-btn {
   height: 2.55rem;
   border: 1px solid var(--line);
