@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { BrandLockup } from "@/components/brand/brand-lockup";
+import { authApi } from "@/lib/api/auth";
 import { clearSession, type ClientSession } from "@/lib/auth-session";
 import { APP_NAV } from "@/lib/nav";
 
@@ -15,7 +16,12 @@ export function AppShell({ session, children }: AppShellProps) {
   const router = useRouter();
   const pathname = usePathname();
 
-  function logout() {
+  async function logout() {
+    try {
+      await authApi.logout();
+    } catch {
+      // 网络失败也清本地，避免卡住
+    }
     clearSession();
     router.replace("/");
   }

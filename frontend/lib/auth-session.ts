@@ -1,6 +1,7 @@
 export type ClientSession = {
   email: string;
   credits: number;
+  role?: string;
 };
 
 const SESSION_KEY = "ai-image-session";

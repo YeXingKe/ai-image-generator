@@ -41,10 +41,13 @@ pnpm add -D prisma@6
 pnpm exec prisma generate
 # 数据库就绪后：
 # pnpm exec prisma migrate dev --name init
+# 初始化管理员账号（可在 .env 配置 ADMIN_EMAIL / ADMIN_PASSWORD）：
+# pnpm db:seed
 pnpm dev
 ```
 
-> 说明：当前锁定 **Prisma 6**（Prisma 7 的 datasource 配置方式不同，MVP 暂不升级）。
+> 说明：当前锁定 **Prisma 6**（Prisma 7 的 datasource 配置方式不同，MVP 暂不升级）。  
+> 默认管理员：`admin@moyu.local` / `Admin123456`（务必在生产环境改掉）。
 
 打开 [http://localhost:3000](http://localhost:3000)。
 

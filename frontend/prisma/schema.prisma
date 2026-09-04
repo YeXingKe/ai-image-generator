@@ -11,6 +11,8 @@ model User {
   id        String   @id @default(cuid())
   email     String   @unique
   password  String
+  /** user | admin */
+  role      String   @default("user")
   credits   Int      @default(10)
   createdAt DateTime @default(now()) @map("created_at")
   tasks     GenerationTask[]
