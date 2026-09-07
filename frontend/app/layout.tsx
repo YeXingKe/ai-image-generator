@@ -1,16 +1,7 @@
 import type { Metadata } from "next";
-import { Outfit, Fraunces } from "next/font/google";
+import "@fontsource-variable/outfit";
+import "@fontsource-variable/fraunces";
 import "./globals.css";
-
-const outfit = Outfit({
-  variable: "--font-body",
-  subsets: ["latin"],
-});
-
-const fraunces = Fraunces({
-  variable: "--font-display",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "墨屿 · AI 生图",
@@ -30,10 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="zh-CN"
-      className={`${outfit.variable} ${fraunces.variable} h-full overflow-x-hidden antialiased`}
-    >
+    <html lang="zh-CN" className="h-full overflow-x-hidden antialiased">
       <body className="flex min-h-full flex-col overflow-x-hidden">{children}</body>
     </html>
   );

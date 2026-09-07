@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
 :root {
+  --font-body: "Outfit Variable", "Segoe UI", sans-serif;
+  --font-display: "Fraunces Variable", Georgia, serif;
   --bg: #eef2f6;
   --panel: #f7f9fc;
   --stage: #0c0f14;
@@ -28,7 +30,7 @@
 body {
   background: var(--bg);
   color: var(--ink);
-  font-family: var(--font-body), "Segoe UI", sans-serif;
+  font-family: var(--font-body);
   overflow-x: hidden;
 }
 
