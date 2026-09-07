@@ -4,7 +4,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AuthStage } from "@/components/auth/auth-stage";
+import { authApi } from "@/lib/api/auth";
 import { setSession } from "@/lib/auth-session";
+import { ApiError } from "@/lib/request";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -12,16 +14,16 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
 
-  function onSubmit(e: React.FormEvent) {
+  async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
-    if (!email.trim() || password.length < 6) {
-      setError("请输入邮箱，密码至少 6 位");
-      return;
+    try {
+      const data = await authApi.register(email.trim(), password);
+      setSession(data);
+      router.replace("/workspace");
+    } catch (err) {
+      setError(err instanceof ApiError ? err.message : "网络异常，请稍后重试");
     }
-    // UI 阶段：本地会话并赠送体验积分。真实注册接通 /api/auth/register 后替换。
-    setSession({ email: email.trim(), credits: 10 });
-    router.replace("/workspace");
   }
 
   return (
@@ -55,11 +57,11 @@ export default function RegisterPage() {
             <input
               type="password"
               required
-              minLength={6}
+              minLength={8}
               autoComplete="new-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="至少 6 位"
+              placeholder="至少 8 位"
               className="auth-field"
             />
           </label>

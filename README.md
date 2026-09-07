@@ -41,10 +41,13 @@ pnpm add -D prisma@6
 pnpm exec prisma generate
 # 数据库就绪后：
 # pnpm exec prisma migrate dev --name init
+# 初始化管理员账号（可在 .env 配置 ADMIN_EMAIL / ADMIN_PASSWORD）：
+# pnpm db:seed
 pnpm dev
 ```
 
-> 说明：当前锁定 **Prisma 6**（Prisma 7 的 datasource 配置方式不同，MVP 暂不升级）。
+> 说明：当前锁定 **Prisma 6**（Prisma 7 的 datasource 配置方式不同，MVP 暂不升级）。  
+> 默认管理员：`admin@moyu.local` / `Admin123456`（务必在生产环境改掉）。
 
 打开 [http://localhost:3000](http://localhost:3000)。
 
@@ -81,6 +84,7 @@ docker compose --profile worker up -d redis
 |--------------|------|
 | `docs/从零开发手册.md` | 分阶段步骤、验收标准 |
 | `docs/从零开发手册-完整代码.md` | **可复制粘贴的完整实现代码** |
+| `docs/Prisma数据库命令.md` | **加字段/建表后要跑的 Prisma 命令** |
 | `docs/小白入门-架构与业务.md` | 业务分析 + 架构理解（Python 小白向） |
 | `docs/产品方案.md` | 功能、定价、流程 |
 | `docs/技术方案.md` | 架构、表、API（完整技术方案） |
