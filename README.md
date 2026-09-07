@@ -84,6 +84,7 @@ docker compose --profile worker up -d redis
 |--------------|------|
 | `docs/从零开发手册.md` | 分阶段步骤、验收标准 |
 | `docs/从零开发手册-完整代码.md` | **可复制粘贴的完整实现代码** |
+| `docs/Prisma数据库命令.md` | **加字段/建表后要跑的 Prisma 命令** |
 | `docs/小白入门-架构与业务.md` | 业务分析 + 架构理解（Python 小白向） |
 | `docs/产品方案.md` | 功能、定价、流程 |
 | `docs/技术方案.md` | 架构、表、API（完整技术方案） |

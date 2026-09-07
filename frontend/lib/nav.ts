@@ -3,5 +3,6 @@ export const APP_NAV = [
   { href: "/history", label: "历史" },
   { href: "/templates", label: "模板" },
   { href: "/gallery", label: "图库" },
+  { href: "/recharge", label: "充值" },
   { href: "/about", label: "关于" },
 ] as const;

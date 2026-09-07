@@ -106,9 +106,45 @@ export function GenerateWorkspace() {
   }
 
   return (
-    <div className="grid min-h-0 flex-1 grid-cols-1 lg:grid-cols-[minmax(480px,560px)_minmax(0,1fr)] xl:grid-cols-[minmax(520px,640px)_minmax(0,1fr)]">
-      {/* Left: config */}
-      <section className="order-1 flex min-h-0 flex-col border-b border-[var(--line)] bg-[var(--panel)] lg:border-b-0 lg:border-r">
+    <div className="grid min-h-0 flex-1 grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(480px,560px)] xl:grid-cols-[minmax(0,1fr)_minmax(520px,640px)]">
+      {/* Left: preview */}
+      <section className="relative order-2 flex min-h-[46vh] flex-col overflow-hidden bg-[var(--stage)] lg:order-none lg:min-h-0">
+        <div className="stage-grid pointer-events-none absolute inset-0 opacity-70" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_35%,rgba(20,184,166,0.14),transparent_55%),radial-gradient(ellipse_at_80%_90%,rgba(56,189,248,0.08),transparent_45%)]" />
+
+        <div className="relative z-10 flex items-center justify-between px-5 py-4 text-xs text-[var(--stage-muted)] md:px-7">
+          <span>预览</span>
+          <span className="tracking-wide">
+            {activeVersion?.name ?? "—"} · {size}
+          </span>
+        </div>
+
+        <div className="relative z-10 flex flex-1 items-center justify-center px-5 pb-8 md:px-10">
+          {resultUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={resultUrl}
+              alt="生成结果"
+              className="max-h-[min(68vh,760px)] w-auto max-w-full object-contain shadow-[0_30px_90px_rgba(0,0,0,0.55)]"
+            />
+          ) : (
+            <div className="relative flex w-full max-w-md flex-col items-center gap-4 px-4 text-center">
+              <div className="pulse-ring h-24 w-24 rounded-full border border-white/10 bg-white/[0.03]" />
+              <div>
+                <p className="font-[family-name:var(--font-display)] text-2xl tracking-tight text-white">
+                  等待创作
+                </p>
+                <p className="mt-2 text-sm leading-6 text-[var(--stage-muted)]">
+                  在右侧选择模型版本与提示词，生成结果会呈现在此画布。
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Right: config */}
+      <section className="order-1 flex min-h-0 flex-col border-b border-[var(--line)] bg-[var(--panel)] lg:order-none lg:border-b-0 lg:border-l">
         <form
           onSubmit={onGenerate}
           className="flex min-h-0 flex-1 flex-col gap-6 overflow-y-auto p-5 md:p-6"
@@ -349,42 +385,6 @@ export function GenerateWorkspace() {
             </button>
           </div>
         </form>
-      </section>
-
-      {/* Right: preview */}
-      <section className="relative order-2 flex min-h-[46vh] flex-col overflow-hidden bg-[var(--stage)] lg:min-h-0">
-        <div className="stage-grid pointer-events-none absolute inset-0 opacity-70" />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_35%,rgba(20,184,166,0.14),transparent_55%),radial-gradient(ellipse_at_80%_90%,rgba(56,189,248,0.08),transparent_45%)]" />
-
-        <div className="relative z-10 flex items-center justify-between px-5 py-4 text-xs text-[var(--stage-muted)] md:px-7">
-          <span>预览</span>
-          <span className="tracking-wide">
-            {activeVersion?.name ?? "—"} · {size}
-          </span>
-        </div>
-
-        <div className="relative z-10 flex flex-1 items-center justify-center px-5 pb-8 md:px-10">
-          {resultUrl ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={resultUrl}
-              alt="生成结果"
-              className="max-h-[min(68vh,760px)] w-auto max-w-full object-contain shadow-[0_30px_90px_rgba(0,0,0,0.55)]"
-            />
-          ) : (
-            <div className="relative flex w-full max-w-md flex-col items-center gap-4 px-4 text-center">
-              <div className="pulse-ring h-24 w-24 rounded-full border border-white/10 bg-white/[0.03]" />
-              <div>
-                <p className="font-[family-name:var(--font-display)] text-2xl tracking-tight text-white">
-                  等待创作
-                </p>
-                <p className="mt-2 text-sm leading-6 text-[var(--stage-muted)]">
-                  在左侧选择模型版本与提示词，生成结果会呈现在此画布。
-                </p>
-              </div>
-            </div>
-          )}
-        </div>
       </section>
     </div>
   );
